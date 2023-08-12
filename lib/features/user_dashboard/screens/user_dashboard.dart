@@ -54,7 +54,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
         preferredSize: const Size(double.infinity, kToolbarHeight),
         child: makeAppBar(context),
       ),
-      drawer: buildStylishDrawer(context),
+      drawer: buildstylishDrawer(context),
       body: SingleChildScrollView(
         child: Column(
           children: [
