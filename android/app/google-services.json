@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "330185698548",
+    "project_id": "ecosynergy-00d",
+    "storage_bucket": "ecosynergy-00d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:330185698548:android:db0da5a3e618fa72a282a1",
+        "android_client_info": {
+          "package_name": "com.example.eco_synergy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "330185698548-mahbpub8ugkad0emtiv6f7oen8s4te8i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxBCqkPdTGMu3H4xRrmoIaRnjMBZtObe8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "330185698548-mahbpub8ugkad0emtiv6f7oen8s4te8i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomLoginButton extends StatefulWidget {
+  final String text;
+  final VoidCallback onTap;
   final Color hoverColor; // New property for hover color
   final double borderWidth; // New property for border width
   final Color borderColor; // New property for border color
 
   const CustomLoginButton({
     Key? key,
+    required this.text,
+    required this.onTap,
     this.hoverColor = Colors.transparent,
     this.borderWidth = 2.0,
     this.borderColor = Colors.transparent,
@@ -25,7 +29,7 @@ class CustomLoginButtonState extends State<CustomLoginButton> {
     final size = MediaQuery.of(context).size;
 
     return InkWell(
-      onTap: () {},
+      onTap: widget.onTap,
       onTapDown: (_) {
         setState(() {
           _isHovered = true;
@@ -69,7 +73,7 @@ class CustomLoginButtonState extends State<CustomLoginButton> {
           ],
         ),
         child: Text(
-          "Login",
+          widget.text,
           style: GoogleFonts.poppins(
             color: Colors.white,
             fontSize: 12,

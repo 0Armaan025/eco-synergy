@@ -2,6 +2,7 @@ import 'package:eco_synergy/common/buttons/custom_login_button.dart';
 import 'package:eco_synergy/common/text_fields/custom_text_field.dart';
 import 'package:eco_synergy/constants/constants.dart';
 import 'package:eco_synergy/constants/utils.dart';
+import 'package:eco_synergy/features/auth/controllers/auth_controller.dart';
 import 'package:eco_synergy/features/auth/screens/signup/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +18,12 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
+
+  void logIn(BuildContext context) {
+    AuthController controller = AuthController();
+
+    controller.logIn(context, _emailController.text, _passController.text);
+  }
 
   @override
   void dispose() {
@@ -122,7 +129,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 20),
-                  CustomLoginButton(),
+                  CustomLoginButton(
+                    text: "Login",
+                    onTap: () {},
+                  ),
                   //lol, I'm tireddddd
                 ],
               ),

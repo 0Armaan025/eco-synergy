@@ -2,9 +2,13 @@ import 'package:eco_synergy/common/buttons/custom_login_button.dart';
 import 'package:eco_synergy/common/text_fields/custom_text_field.dart';
 import 'package:eco_synergy/constants/constants.dart';
 import 'package:eco_synergy/constants/utils.dart';
+import 'package:eco_synergy/features/auth/models/user.dart';
+import 'package:eco_synergy/features/auth/screens/login/screens/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../controllers/auth_controller.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -25,6 +29,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _nameController.dispose();
     _emailController.dispose();
     _passController.dispose();
+  }
+
+  void signUp(BuildContext context) {
+    // some bugs in firebase,
+
+    UserModel model = UserModel(
+        name: _nameController.text,
+        uid: '',
+        email: _emailController.text,
+        pass: _passController.text,
+        ecoCurrency: '0');
+
+    AuthController controller = AuthController();
+    controller.signUp(context, model);
   }
 
   @override
@@ -110,23 +128,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "New to $appName?",
+                          "Already registered?",
                           style: GoogleFonts.poppins(
                             color: Colors.white,
                           ),
                         ),
-                        Text(
-                          "\tRegister here :D",
-                          style: GoogleFonts.poppins(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+                        InkWell(
+                          onTap: () {
+                            moveScreen(context, LoginScreen());
+                          },
+                          child: Text(
+                            "\tLogin here :D",
+                            style: GoogleFonts.poppins(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 20),
-                  CustomLoginButton(),
+                  CustomLoginButton(
+                    text: "Sign Up",
+                    onTap: () {},
+                  ),
                   //lol, I'm tireddddd
                 ],
               ),

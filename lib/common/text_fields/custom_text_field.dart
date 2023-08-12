@@ -29,6 +29,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
         controller: widget.controller,
         obscureText: widget.isObscure,
         decoration: InputDecoration(
+          hintStyle: TextStyle(
+            color: Colors.white70,
+          ),
           hintText: widget.hintText,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
