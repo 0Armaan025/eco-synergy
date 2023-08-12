@@ -33,7 +33,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
-    _timer = Timer.periodic(Duration(minutes: 1), (timer) {
+    _timer = Timer.periodic(const Duration(minutes: 1), (timer) {
       setState(() {
         _date = DateFormat.yMMMMd('en_US').format(DateTime.now());
         _time = DateFormat.jm().format(DateTime.now());
@@ -62,18 +62,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
               width: double.infinity,
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       'Welcome, Armaan!',
                       style:
                           TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 8),
-                    Text(_date, style: TextStyle(fontSize: 18)),
-                    Text(_time, style: TextStyle(fontSize: 18)),
+                    const SizedBox(height: 8),
+                    Text(_date, style: const TextStyle(fontSize: 18)),
+                    Text(_time, style: const TextStyle(fontSize: 18)),
                   ],
                 ),
               ),
@@ -134,24 +134,24 @@ class DashboardItem extends StatelessWidget {
     return Container(
       height: 200,
       child: Card(
-        margin: EdgeInsets.all(8),
+        margin: const EdgeInsets.all(8),
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8), color: color),
           child: Padding(
-            padding: EdgeInsets.all(4),
+            padding: const EdgeInsets.all(4),
             child: Column(
                 mainAxisAlignment:
                     MainAxisAlignment.center, // Center the content vertically
                 children: [
                   Text(title,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
                           color: Colors.white70)),
-                  SizedBox(height: 8),
+                  const SizedBox(height: 8),
                   Text(value,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 19,
                           color: Colors.white,
                           fontWeight: FontWeight.bold))

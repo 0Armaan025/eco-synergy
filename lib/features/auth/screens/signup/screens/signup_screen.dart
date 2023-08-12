@@ -88,10 +88,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void signUp(BuildContext context) {
-    final model = User(
+    final model = UserModel(
       name: _nameController.text,
       email: _emailController.text,
-      password: _passwordController.text,
+      pass: _passwordController.text, ecoCurrency: '0',uid: '',
     );
 
     AuthController controller = AuthController();
