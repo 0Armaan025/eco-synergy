@@ -1,5 +1,6 @@
 import 'package:eco_synergy/constants/utils.dart';
 import 'package:eco_synergy/features/auth/models/user.dart';
+import 'package:eco_synergy/features/home/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../../../constants/constants.dart';
@@ -20,7 +21,7 @@ class AuthRepository {
             .doc(firebaseAuth.currentUser?.uid ?? '')
             .set(model.toMap())
             .then((value) {
-          // moveScreen(context, )
+          moveScreen(context, HomeScreen());
         });
       });
     } catch (e) {
@@ -31,6 +32,8 @@ class AuthRepository {
   void login(BuildContext context, String email, String pass) {
     firebaseAuth
         .signInWithEmailAndPassword(email: email, password: pass)
-        .then((value) {});
+        .then((value) {
+      moveScreen(context, HomeScreen());
+    });
   }
 }

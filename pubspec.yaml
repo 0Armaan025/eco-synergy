@@ -41,7 +41,11 @@ dependencies:
   firebase_auth: ^4.7.2
   animated_splash_screen: ^1.3.0
   page_transition: ^2.0.9
+<<<<<<< HEAD
   rive: ^0.11.14
+=======
+  intl: ^0.18.1
+>>>>>>> 84ff575aef50923e131886fd128f65be178f22ab
 
 dev_dependencies:
   flutter_test:
