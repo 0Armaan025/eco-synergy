@@ -82,15 +82,20 @@ Widget buildStylishDrawer(BuildContext context) {
             ),
             Divider(color: Colors.white),
             InkWell(
-              onTap: () {}, // Add an animation here
+              onTap: () {
+                firebaseAuth.signOut();
+                moveScreen(context, SigninScreen());
+              },
               child: ListTile(
-                // Use a custom widget here
-                leading: Icon(Icons.exit_to_app,
-                    color: Colors.white), // Use a custom icon here
-                title: Text("Log Out",
-                    style:
-                        TextStyle(color: Colors.white)), // Change the font here
-                onTap: () {}, // Add an animation here
+                leading: Icon(Icons.exit_to_app, color: Colors.white),
+                title: Text(
+                  "LogOut",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onTap: () {
+                  firebaseAuth.signOut();
+                  moveScreen(context, SigninScreen());
+                },
               ),
             ),
           ],

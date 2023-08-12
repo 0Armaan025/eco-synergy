@@ -4,10 +4,13 @@ import 'package:eco_synergy/constants/constants.dart';
 import 'package:eco_synergy/constants/utils.dart';
 import 'package:eco_synergy/features/auth/models/user.dart';
 import 'package:eco_synergy/features/auth/screens/login/screens/login_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rive/rive.dart';
 
+import '../../../../../common/buttons/custom_button.dart';
 import '../../../controllers/auth_controller.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -18,148 +21,246 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  late String animationUrl;
+  Artboard? _teddyArtboard;
+  SMITrigger? successTrigger, failTrigger;
+  SMIBool? isHandsUp, isChecking;
+  SMINumber? numLook;
+
+  StateMachineController? stateMachineController;
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
-    _nameController.dispose();
-    _emailController.dispose();
-    _passController.dispose();
+  void initState() {
+    super.initState();
+    animationUrl = defaultTargetPlatform == TargetPlatform.android ||
+            defaultTargetPlatform == TargetPlatform.iOS
+        ? 'resources/animation/animation.riv'
+        : 'animation/animation.riv';
+    rootBundle.load(animationUrl).then((data) {
+      final file = RiveFile.import(data);
+      final artboard = file.mainArtboard;
+      stateMachineController =
+          StateMachineController.fromArtboard(artboard, 'Login Machine');
+      if (stateMachineController != null) {
+        artboard.addController(stateMachineController!);
+
+        stateMachineController!.inputs.forEach((e) {
+          debugPrint(e.runtimeType.toString());
+          debugPrint("name${e.name}End");
+        });
+
+        stateMachineController!.inputs.forEach((element) {
+          if (element.name == 'trigSuccess') {
+            successTrigger = element as SMITrigger;
+          } else if (element.name == 'trigFail') {
+            failTrigger = element as SMITrigger;
+          } else if (element.name == 'isHandsUp') {
+            isHandsUp = element as SMIBool;
+          } else if (element.name == 'isChecking') {
+            isChecking = element as SMIBool;
+          } else if (element.name == 'numLook') {
+            numLook = element as SMINumber;
+          }
+        });
+      }
+
+      setState(() {
+        _teddyArtboard = artboard;
+      });
+    });
+  }
+
+  void handsOnTheEyes() {
+    isHandsUp?.change(true);
+  }
+
+  void lookOnTheTextField() {
+    isHandsUp?.change(false);
+    isChecking?.change(true);
+    numLook?.change(0);
+  }
+
+  void moveEyeBalls(val) {
+    numLook?.change(val.length.toDouble());
   }
 
   void signUp(BuildContext context) {
-    // some bugs in firebase,
-
-    UserModel model = UserModel(
-        name: _nameController.text,
-        uid: '',
-        email: _emailController.text,
-        pass: _passController.text,
-        ecoCurrency: '0');
+    final model = UserModel(
+      name: _nameController.text,
+      email: _emailController.text,
+      pass: _passwordController.text, ecoCurrency: '0',uid: '',
+    );
 
     AuthController controller = AuthController();
+
     controller.signUp(context, model);
   }
 
   @override
+  void dispose() {
+    super.dispose();
+    _nameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size(double.infinity, kToolbarHeight),
-        child: makeAppBar(context),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 40,
-            ),
-            Center(
-              child: Text(
-                "Welcome, Welcome! 😉 🔥🔥",
-                style: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontSize: 21,
-                  fontWeight: FontWeight.w600,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              if (_teddyArtboard != null)
+                SizedBox(
+                  width: 400,
+                  height: 300,
+                  child: Rive(
+                    artboard: _teddyArtboard!,
+                    fit: BoxFit.fitWidth,
+                  ),
                 ),
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Center(
-              child: Text(
-                "We have to be the doctors of environment! :)",
-                style: GoogleFonts.poppins(
-                  color: Colors.grey,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
+              Container(
+                alignment: Alignment.center,
+                width: 400,
+                padding: const EdgeInsets.only(bottom: 15.0),
+                margin: const EdgeInsets.only(bottom: 15 * 4),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
                 ),
-              ),
-            ),
-            const SizedBox(
-              height: 70,
-            ),
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              height: size.height * 0.6,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomTextField(
-                      controller: _nameController,
-                      hintText: "Name",
-                      keyboardType: TextInputType.name,
-                      isObscure: false),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  CustomTextField(
-                      controller: _emailController,
-                      hintText: "Email",
-                      keyboardType: TextInputType.emailAddress,
-                      isObscure: false),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  CustomTextField(
-                      controller: _passController,
-                      hintText: "Password",
-                      keyboardType: TextInputType.visiblePassword,
-                      isObscure: true),
-
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Already registered?",
-                          style: GoogleFonts.poppins(
-                            color: Colors.white,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 20,
                           ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            moveScreen(context, LoginScreen(),isPushReplacement: true);
-                          },
-                          child: Text(
-                            "\tLogin here :D",
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                          TextField(
+                            onTap: lookOnTheTextField,
+                            onChanged: moveEyeBalls,
+                            controller: _nameController,
+                            keyboardType: TextInputType.emailAddress,
+                            style: const TextStyle(fontSize: 14),
+                            cursorColor: Colors.grey,
+                            decoration: const InputDecoration(
+                              labelText: 'Name',
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                              focusColor: Colors.blueAccent,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  CustomLoginButton(
-                    text: "Sign Up",
-                    onTap: () {
-                      signUp(context);
-                    },
-                  ),
-                  //lol, I'm tireddddd
-                ],
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextField(
+                            onTap: lookOnTheTextField,
+                            onChanged: moveEyeBalls,
+                            controller: _emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            style: const TextStyle(fontSize: 14),
+                            cursorColor: Colors.grey,
+                            decoration: const InputDecoration(
+                              labelText: 'Email',
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                              focusColor: Colors.blueAccent,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextField(
+                            onTap: handsOnTheEyes,
+                            controller: _passwordController,
+                            keyboardType: TextInputType.emailAddress,
+                            style: const TextStyle(fontSize: 14),
+                            cursorColor: Colors.grey,
+                            decoration: const InputDecoration(
+                              labelText: 'Password',
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                              focusColor: Colors.blueAccent,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          GestureDetector(
+                              onTap: () {},
+                              child: const CustomButton(text: 'Sign Up')),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  'Already have an account?',
+                                  style: GoogleFonts.roboto(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  moveScreen(context, const SigninScreen());
+                                },
+                                child: Text(
+                                  "\tSign In",
+                                  style: GoogleFonts.roboto(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
