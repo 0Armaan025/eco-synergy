@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:eco_synergy/common/drawer/stylish_drawer.dart';
 
 class RecipeScreen extends StatefulWidget {
   @override
@@ -70,6 +71,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
       appBar: AppBar(
         title: Text('Recipe Finder'),
       ),
+      drawer: buildstylishDrawer(context),
       body: Column(
         children: [
           Padding(

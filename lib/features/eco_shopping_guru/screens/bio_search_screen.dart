@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:eco_synergy/common/drawer/stylish_drawer.dart';
 
 class Bag {
   final String name;
@@ -48,6 +49,7 @@ class _BagScreenState extends State<BagScreen> {
       appBar: AppBar(
         title: Text('Eco-Friendly Bags'),
       ),
+      drawer: buildstylishDrawer(context),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

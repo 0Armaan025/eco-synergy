@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:eco_synergy/common/drawer/stylish_drawer.dart';
 
 class CarbonFootprintScreen extends StatefulWidget {
   @override
@@ -26,6 +27,7 @@ class _CarbonFootprintScreenState extends State<CarbonFootprintScreen> {
         title: Text('Carbon Footprint Calculator'),
         backgroundColor: Colors.green,
       ),
+      drawer: buildstylishDrawer(context),
       body: Form(
         key: _formKey,
         child: Padding(
