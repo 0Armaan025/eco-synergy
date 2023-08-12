@@ -4,142 +4,253 @@ import 'package:eco_synergy/constants/constants.dart';
 import 'package:eco_synergy/constants/utils.dart';
 import 'package:eco_synergy/features/auth/controllers/auth_controller.dart';
 import 'package:eco_synergy/features/auth/screens/signup/screens/signup_screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rive/rive.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+import '../../../../../common/buttons/custom_button.dart';
+
+class SigninScreen extends StatefulWidget {
+  const SigninScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SigninScreen> createState() => _SigninScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SigninScreenState extends State<SigninScreen> {
+  late String animationUrl;
+  Artboard? _teddyArtboard;
+  SMITrigger? successTrigger, failTrigger;
+  SMIBool? isHandsUp, isChecking;
+  SMINumber? numLook;
+
+  StateMachineController? stateMachineController;
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-  void logIn(BuildContext context) {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    animationUrl = defaultTargetPlatform == TargetPlatform.android ||
+            defaultTargetPlatform == TargetPlatform.iOS
+        ? 'resources/animation/animation.riv'
+        : 'animation/animation.riv';
+    rootBundle.load(animationUrl).then((data) {
+      final file = RiveFile.import(data);
+      final artboard = file.mainArtboard;
+      stateMachineController =
+          StateMachineController.fromArtboard(artboard, 'Login Machine');
+      if (stateMachineController != null) {
+        artboard.addController(stateMachineController!);
+
+        stateMachineController!.inputs.forEach((e) {
+          debugPrint(e.runtimeType.toString());
+          debugPrint("name${e.name}End");
+        });
+
+        stateMachineController!.inputs.forEach((element) {
+          if (element.name == 'trigSuccess') {
+            successTrigger = element as SMITrigger;
+          } else if (element.name == 'trigFail') {
+            failTrigger = element as SMITrigger;
+          } else if (element.name == 'isHandsUp') {
+            isHandsUp = element as SMIBool;
+          } else if (element.name == 'isChecking') {
+            isChecking = element as SMIBool;
+          } else if (element.name == 'numLook') {
+            numLook = element as SMINumber;
+          }
+        });
+      }
+
+      setState(() {
+        _teddyArtboard = artboard;
+      });
+    });
+  }
+
+  void handsOnTheEyes() {
+    isHandsUp?.change(true);
+  }
+
+  void lookOnTheTextField() {
+    isHandsUp?.change(false);
+    isChecking?.change(true);
+    numLook?.change(0);
+  }
+
+  void moveEyeBalls(val) {
+    numLook?.change(val.length.toDouble());
+  }
+
+  void login(BuildContext context) {
+    isChecking?.change(false);
+    isHandsUp?.change(false);
     AuthController controller = AuthController();
-
-    controller.logIn(context, _emailController.text, _passController.text);
+    controller.logIn(context, _emailController.text, _passwordController.text);
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _emailController.dispose();
-    _passController.dispose();
+    _passwordController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size(double.infinity, kToolbarHeight),
-        child: makeAppBar(context),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            const SizedBox(
-              height: 40,
-            ),
-            Center(
-              child: Text(
-                "Welcome, Welcome! 😉 🔥🔥",
-                style: GoogleFonts.poppins(
-                  color: Colors.black,
-                  fontSize: 21,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Center(
-              child: Text(
-                "We have to be the doctors of environment! :)",
-                style: GoogleFonts.poppins(
-                  color: Colors.grey,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 70,
-            ),
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 20),
-              height: size.height * 0.45,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: Colors.green,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CustomTextField(
-                      controller: _emailController,
-                      hintText: "Email",
-                      keyboardType: TextInputType.emailAddress,
-                      isObscure: false),
-                  const SizedBox(
-                    height: 40,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              if (_teddyArtboard != null)
+                SizedBox(
+                  width: 400,
+                  height: 300,
+                  child: Rive(
+                    artboard: _teddyArtboard!,
+                    fit: BoxFit.fitWidth,
                   ),
-                  CustomTextField(
-                      controller: _passController,
-                      hintText: "Password",
-                      keyboardType: TextInputType.visiblePassword,
-                      isObscure: true),
-
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Center(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "New to $appName?",
-                          style: GoogleFonts.poppins(
-                            color: Colors.white,
+                ),
+              Container(
+                alignment: Alignment.center,
+                width: 400,
+                padding: const EdgeInsets.only(bottom: 15.0),
+                margin: const EdgeInsets.only(bottom: 15 * 4),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 30,
                           ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            moveScreen(context, SignUpScreen());
-                          },
-                          child: Text(
-                            "\tRegister here :D",
-                            style: GoogleFonts.poppins(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
+                          TextField(
+                            onTap: lookOnTheTextField,
+                            onChanged: moveEyeBalls,
+                            controller: _emailController,
+                            keyboardType: TextInputType.emailAddress,
+                            style: const TextStyle(fontSize: 14),
+                            cursorColor: Colors.grey,
+                            decoration: const InputDecoration(
+                              labelText: 'Email',
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                              focusColor: Colors.blueAccent,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey,
+                                ),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  CustomLoginButton(
-                    text: "Login",
-                    onTap: () {
-                      logIn(context);
-                    },
-                  ),
-                  //lol, I'm tireddddd
-                ],
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          TextField(
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              border: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10)),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: const BorderSide(
+                                  color: Colors.grey,
+                                  width: 1.5,
+                                ),
+                              ),
+                            ),
+                            onTap: handsOnTheEyes,
+                            controller: _passwordController,
+                            keyboardType: TextInputType.visiblePassword,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Container(
+                            margin: const EdgeInsets.only(right: 20),
+                            width: double.infinity,
+                            alignment: Alignment.centerRight,
+                            child: Text(
+                              'Forgot Password?',
+                              style: GoogleFonts.poppins(
+                                color: Colors.green,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          GestureDetector(
+                            onTap: () {},
+                            child: GestureDetector(
+                              onTap: () {
+                                login(context);
+                              },
+                              child: const CustomButton(
+                                text: 'Sign In',
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Center(
+                                child: Text(
+                                  'Don\'t have an account?',
+                                  style: GoogleFonts.roboto(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 5,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  moveScreen(context, const SignUpScreen());
+                                },
+                                child: Text(
+                                  '\tSign Up',
+                                  style: GoogleFonts.roboto(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.blue,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

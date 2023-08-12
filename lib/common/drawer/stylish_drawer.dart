@@ -92,7 +92,7 @@ Widget buildstylishDrawer(BuildContext context) {
             InkWell(
               onTap: () {
                 firebaseAuth.signOut();
-                moveScreen(context, LoginScreen());
+                moveScreen(context, SigninScreen());
               },
               child: ListTile(
                 leading: Icon(Icons.exit_to_app, color: Colors.white),
@@ -102,7 +102,7 @@ Widget buildstylishDrawer(BuildContext context) {
                 ),
                 onTap: () {
                   firebaseAuth.signOut();
-                  moveScreen(context, LoginScreen());
+                  moveScreen(context, SigninScreen());
                 },
               ),
             ),
