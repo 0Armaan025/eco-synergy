@@ -1,17 +1,15 @@
-import 'package:eco_synergy/common/buttons/custom_go_ahead_btn.dart';
 import 'package:eco_synergy/constants/utils.dart';
-import 'package:eco_synergy/features/onboarding/screens/onboarding_screen_2.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class OnboardingScreen extends StatefulWidget {
-  const OnboardingScreen({super.key});
+class OnboardingScreen2 extends StatefulWidget {
+  const OnboardingScreen2({super.key});
 
   @override
-  State<OnboardingScreen> createState() => _OnboardingScreenState();
+  State<OnboardingScreen2> createState() => _OnboardingScreen2State();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
+class _OnboardingScreen2State extends State<OnboardingScreen2> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +26,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: CircleAvatar(
                 radius: 90,
                 backgroundImage: NetworkImage(
-                    'https://images.unsplash.com/photo-1572202808998-93788f6d39da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8ZWNvfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60'),
+                    'https://media.istockphoto.com/id/1483201075/photo/ecopath-in-the-forest-vdnkh-moscow.webp?s=1024x1024&w=is&k=20&c=N8BJJK8MBVOv2JeMmZVnx7fpM2kpAXXBhMVqZ66S_UM='),
               ),
             ),
             const SizedBox(
@@ -36,7 +34,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             ),
             Center(
               child: Text(
-                'Greener Living Awaits',
+                'Craft Your EcoPath',
                 style: GoogleFonts.poppins(
                   color: Colors.purple,
                   fontSize: 22,
@@ -51,7 +49,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
                 child: Text(
-                  'Empower your journey towards sustainability with our innovative features.',
+                  'Optimize energy, water, waste, and consumption for a harmonious life.',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.lato(
                     color: Colors.black,
@@ -64,13 +62,18 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             const SizedBox(
               height: 60,
             ),
-            CustomGoAheadButton(
-                bgColor: const Color.fromARGB(255, 64, 131, 2),
-                text: "Go Ahead!",
-                onTap: () {
-                  moveScreen(context, const OnboardingScreen2());
-                },
-                textColor: Colors.white),
+            CircleAvatar(
+              radius: 40,
+              backgroundColor: Colors.blue,
+              child: IconButton(
+                icon: const Icon(
+                  Icons.arrow_right_alt,
+                  size: 58,
+                  color: Colors.white,
+                ),
+                onPressed: () {},
+              ),
+            ),
           ],
         ),
       ),
