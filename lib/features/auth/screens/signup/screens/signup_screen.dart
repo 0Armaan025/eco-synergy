@@ -151,7 +151,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   const SizedBox(height: 20),
                   CustomLoginButton(
                     text: "Sign Up",
-                    onTap: () {},
+                    onTap: () {
+                      signUp(context);
+                    },
                   ),
                   //lol, I'm tireddddd
                 ],

@@ -1,3 +1,4 @@
+import 'package:eco_synergy/constants/utils.dart';
 import 'package:eco_synergy/features/auth/models/user.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,10 @@ class AuthRepository {
         firestore
             .collection('users')
             .doc(firebaseAuth.currentUser?.uid ?? '')
-            .set(model.toMap());
+            .set(model.toMap())
+            .then((value) {
+          // moveScreen(context, )
+        });
       });
     } catch (e) {
       print(e);
