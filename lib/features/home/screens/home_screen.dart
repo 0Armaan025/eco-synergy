@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
         preferredSize: const Size(double.infinity, kToolbarHeight),
         child: makeAppBar(context),
       ),
-      drawer: buildstylishDrawer(context),
+      drawer: buildStylishDrawer(context),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: IconButton(

@@ -1,11 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:eco_synergy/constants/constants.dart';
 import 'package:eco_synergy/constants/utils.dart';
 import 'package:eco_synergy/features/auth/screens/login/screens/login_screen.dart';
 import 'package:eco_synergy/features/home/screens/home_screen.dart';
 import 'package:eco_synergy/features/onboarding/screens/onboarding_screen.dart';
-import 'package:flutter/material.dart';
 
-Widget buildstylishDrawer(BuildContext context) {
+Widget buildStylishDrawer(BuildContext context) {
   final Color primaryGreen = Color.fromARGB(255, 170, 198, 241);
   final Color secondaryGreen = Color.fromARGB(255, 129, 115, 207);
   final Color headerGreen = Color.fromARGB(255, 74, 68, 248);
@@ -64,47 +64,33 @@ Widget buildstylishDrawer(BuildContext context) {
               ),
             ),
             ListTile(
-              leading: Icon(
-                Icons.home,
-                color: Colors.white,
-              ),
-              title: Text(
-                "Home",
-                style: TextStyle(color: Colors.white),
-              ),
-              onTap: () {
-                moveScreen(context, HomeScreen());
-              },
+              leading: Icon(Icons.home,
+                  color: Colors.white), // Use a custom icon here
+              title: Text("Home",
+                  style:
+                      TextStyle(color: Colors.white)), // Change the font here
+              onTap: () =>
+                  moveScreen(context, HomeScreen()), // Add an animation here
             ),
             ListTile(
-              leading: Icon(
-                Icons.person,
-                color: Colors.white,
-              ),
-              title: Text(
-                "Profile",
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-              onTap: () {},
+              leading: Icon(Icons.person,
+                  color: Colors.white), // Use a custom icon here
+              title: Text("Profile",
+                  style:
+                      TextStyle(color: Colors.white)), // Change the font here
+              onTap: () {}, // Add an animation here
             ),
             Divider(color: Colors.white),
             InkWell(
-              onTap: () {
-                firebaseAuth.signOut();
-                moveScreen(context, OnboardingScreengi());
-              },
+              onTap: () {}, // Add an animation here
               child: ListTile(
-                leading: Icon(Icons.exit_to_app, color: Colors.white),
-                title: Text(
-                  "LogOut",
-                  style: TextStyle(color: Colors.white),
-                ),
-                onTap: () {
-                  firebaseAuth.signOut();
-                  moveScreen(context, LoginScreen());
-                },
+                // Use a custom widget here
+                leading: Icon(Icons.exit_to_app,
+                    color: Colors.white), // Use a custom icon here
+                title: Text("Log Out",
+                    style:
+                        TextStyle(color: Colors.white)), // Change the font here
+                onTap: () {}, // Add an animation here
               ),
             ),
           ],
