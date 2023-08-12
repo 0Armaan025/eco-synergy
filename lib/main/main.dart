@@ -1,6 +1,8 @@
 import 'package:eco_synergy/features/onboarding/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../features/auth/screens/login/screens/login_screen.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: OnboardingScreen(),
+      home: LoginScreen(),
     );
   }
 }
