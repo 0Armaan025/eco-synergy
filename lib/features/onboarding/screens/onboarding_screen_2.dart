@@ -2,6 +2,8 @@ import 'package:eco_synergy/constants/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../home/screens/home_screen.dart';
+
 class OnboardingScreen2 extends StatefulWidget {
   const OnboardingScreen2({super.key});
 
@@ -71,7 +73,9 @@ class _OnboardingScreen2State extends State<OnboardingScreen2> {
                   size: 58,
                   color: Colors.white,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  moveScreen(context, const HomeScreen());
+                },
               ),
             ),
           ],

@@ -1,3 +1,4 @@
+import 'package:eco_synergy/common/drawer/stylish_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -51,6 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
         preferredSize: const Size(double.infinity, kToolbarHeight),
         child: makeAppBar(context),
       ),
+      drawer: buildstylishDrawer(context),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: IconButton(
