@@ -1,4 +1,6 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:eco_synergy/constants/constants.dart';
+import 'package:eco_synergy/features/home/screens/home_screen.dart';
 import 'package:eco_synergy/features/onboarding/screens/onboarding_screen.dart';
 import 'package:eco_synergy/utils/gradient_text.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +34,9 @@ class _SplashScreenState extends State<SplashScreen> {
       animationDuration: const Duration(seconds: 5),
       splashTransition: SplashTransition.fadeTransition,
       pageTransitionType: PageTransitionType.theme,
-      nextScreen: const OnboardingScreen(),
+      nextScreen: firebaseAuth.currentUser != null
+          ? const HomeScreen()
+          : const OnboardingScreen(),
     );
   }
 }

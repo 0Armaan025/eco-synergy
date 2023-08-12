@@ -115,7 +115,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         InkWell(
                           onTap: () {
-                            moveScreen(context, SignUpScreen());
+                            moveScreen(context, SignUpScreen(),
+                                isPushReplacement: true);
                           },
                           child: Text(
                             "\tRegister here :D",

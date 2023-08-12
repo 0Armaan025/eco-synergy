@@ -2,6 +2,7 @@ import 'package:eco_synergy/constants/constants.dart';
 import 'package:eco_synergy/constants/utils.dart';
 import 'package:eco_synergy/features/auth/screens/login/screens/login_screen.dart';
 import 'package:eco_synergy/features/home/screens/home_screen.dart';
+import 'package:eco_synergy/features/onboarding/screens/onboarding_screen.dart';
 import 'package:flutter/material.dart';
 
 Widget buildstylishDrawer(BuildContext context) {
@@ -38,14 +39,14 @@ Widget buildstylishDrawer(BuildContext context) {
                 children: [
                   CircleAvatar(
                     backgroundImage: NetworkImage(
-                        'https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/002/491/831/datas/original.png'),
+                        'https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/002/022/473/datas/original.png'),
                     radius: 40,
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    "${userName}",
+                    "Armaan",
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -53,7 +54,7 @@ Widget buildstylishDrawer(BuildContext context) {
                     ),
                   ),
                   Text(
-                    "${userName}",
+                    "armaan33000@gmail.com",
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.white,
@@ -92,7 +93,7 @@ Widget buildstylishDrawer(BuildContext context) {
             InkWell(
               onTap: () {
                 firebaseAuth.signOut();
-                moveScreen(context, LoginScreen());
+                moveScreen(context, OnboardingScreengi());
               },
               child: ListTile(
                 leading: Icon(Icons.exit_to_app, color: Colors.white),
