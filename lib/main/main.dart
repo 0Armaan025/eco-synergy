@@ -1,3 +1,4 @@
+import 'package:eco_synergy/features/carbon_footprint_calc/screens/carbon_footprint_calc_screen.dart';
 import 'package:eco_synergy/features/home/screens/home_screen.dart';
 import 'package:eco_synergy/features/onboarding/screens/onboarding_screen.dart';
 import 'package:eco_synergy/features/splash/splash_screen.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SplashScreen(),
+      home: CarbonFootprintScreen(),
     );
   }
 }
