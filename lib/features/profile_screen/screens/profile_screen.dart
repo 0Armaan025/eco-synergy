@@ -14,7 +14,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
+
     super.initState();
     getData();
   }
@@ -41,7 +41,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Column(
             children: <Widget>[
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                     image: DecorationImage(
                         image: NetworkImage(
                             "https://images.pexels.com/photos/669996/pexels-photo-669996.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"),
@@ -50,8 +50,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   width: double.infinity,
                   height: 200,
                   child: Container(
-                    alignment: Alignment(0.0, 2.5),
-                    child: CircleAvatar(
+                    alignment: const Alignment(0.0, 2.5),
+                    child: const CircleAvatar(
                       backgroundImage: NetworkImage(
                           "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/002/022/473/datas/original.png"),
                       radius: 60.0,
@@ -59,10 +59,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
-              Text(
+              const Text(
                 "Armaan",
                 style: TextStyle(
                     fontSize: 25.0,
@@ -70,13 +70,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     letterSpacing: 2.0,
                     fontWeight: FontWeight.w400),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               AnimatedCrossFade(
                 firstChild: Container(),
                 secondChild: Column(children: [
-                  Card(
+                  const Card(
                       margin:
                           EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
                       elevation: 2.0,
@@ -85,7 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               vertical: 12, horizontal: 30),
                           child: Text("Name : John Doe",
                               style: TextStyle(fontSize: 18)))),
-                  Card(
+                  const Card(
                       margin:
                           EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
                       elevation: 2.0,
@@ -96,20 +96,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               style: TextStyle(fontSize: 16)))),
                   Card(
                       margin:
-                          EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+                          const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
                       elevation: 2.0,
                       child: Padding(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               vertical: 12, horizontal: 30),
                           child: Text("Eco Coins : $coins",
-                              style: TextStyle(fontSize: 18))))
+                              style: const TextStyle(fontSize: 18))))
                 ]),
                 crossFadeState: _showDetails
                     ? CrossFadeState.showSecond
                     : CrossFadeState.showFirst,
                 duration: const Duration(milliseconds: 300),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
             ],

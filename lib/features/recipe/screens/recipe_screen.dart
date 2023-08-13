@@ -92,12 +92,10 @@ class _RecipeScreenState extends State<RecipeScreen> {
         await userRef.update({
           'ecoCurrency': (parsedMoney + 50).toString(),
         });
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("yay! congrats on 50 more points! 🎉"),
         ));
-      } catch (error) {
-        print('Error updating ecoCurrency: $error');
-      }
+      } catch (error) {}
     } catch (e) {
       if (kDebugMode) {
         print("Error sharing on Twitter: $e");
@@ -171,7 +169,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
           ),
           Expanded(
             child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+              gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
                 maxCrossAxisExtent: 200,
                 mainAxisSpacing: 8.0,
                 crossAxisSpacing: 8.0,
@@ -223,7 +221,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
                       ),
                       InkWell(
                         onTap: () => _shareOnTwitter(_recipes[index]['title']),
-                        child: Icon(
+                        child: const Icon(
                           Icons.share,
                           color: Colors.grey,
                         ),
@@ -246,15 +244,14 @@ class _RecipeScreenState extends State<RecipeScreen> {
                 _ingredients.clear();
               });
             },
-            child: Icon(Icons.clear),
             tooltip: 'Clear Search',
+            child: const Icon(Icons.clear),
           ),
-          SizedBox(height: 16),
+          const SizedBox(height: 16),
           FloatingActionButton(
-            onPressed: _shareAllRecipesOnTwitter,
-            child: Icon(Icons.share),
-            tooltip: 'Share All Recipes on Twitter',
-          ),
+              onPressed: _shareAllRecipesOnTwitter,
+              tooltip: 'Share All Recipes on Twitter',
+              child: const Icon(Icons.share)),
         ],
       ),
     );

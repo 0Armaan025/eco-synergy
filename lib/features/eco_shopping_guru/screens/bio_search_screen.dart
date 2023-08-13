@@ -7,7 +7,7 @@ class Bag {
   final String name;
   final String imageUrl;
 
-  Bag({required this.name, required this.imageUrl});
+  const Bag({required this.name, required this.imageUrl});
 }
 
 class BagScreen extends StatefulWidget {
@@ -47,7 +47,7 @@ class _BagScreenState extends State<BagScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Eco-Friendly Products'),
+        title: const Text('Eco-Friendly Products'),
       ),
       drawer: buildstylishDrawer(context),
       body: Padding(
@@ -57,21 +57,21 @@ class _BagScreenState extends State<BagScreen> {
           children: [
             TextField(
               controller: _keywordController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Enter Keyword',
               ),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () => _fetchBags(_keywordController.text),
-              child: Text('Search'),
+              child: const Text('Search'),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             Expanded(
               child: GridView.builder(
                 itemCount: _filteredBags.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
                   mainAxisSpacing: 16,
                   crossAxisSpacing: 16,
@@ -87,7 +87,7 @@ class _BagScreenState extends State<BagScreen> {
                           width: 80,
                           fit: BoxFit.cover,
                         ),
-                        SizedBox(height: 8),
+                        const SizedBox(height: 8),
                         Text(_filteredBags[index].name),
                       ],
                     ),

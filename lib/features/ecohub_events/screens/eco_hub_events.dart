@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:eco_synergy/constants/constants.dart';
 
 class EcoEvents extends StatefulWidget {
-  const EcoEvents({
-    Key? key,
-  gi}) : super(key: key);
+  const EcoEvents({Key? key, gi}) : super(key: key);
 
   @override
   _EcoEventsState createState() => _EcoEventsState();
@@ -29,12 +27,12 @@ class _EcoEventsState extends State<EcoEvents> {
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot> snapshot) {
                   if (snapshot.hasError)
-                    return new Text('Error: ${snapshot.error}');
+                    return const Text('Error: Error fetching events');
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
-                      return new Text('Loading...');
+                      return const Text('Loading...');
                     default:
-                      return new ListView(
+                      return ListView(
                         children: snapshot.data!.docs
                             .map((DocumentSnapshot document) {
                           return Hero(
@@ -44,7 +42,7 @@ class _EcoEventsState extends State<EcoEvents> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(16),
                               ),
-                              margin: EdgeInsets.symmetric(
+                              margin: const EdgeInsets.symmetric(
                                   horizontal: 16, vertical: 8),
                               child: InkWell(
                                 onTap: () {
@@ -65,9 +63,9 @@ class _EcoEventsState extends State<EcoEvents> {
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline6),
-                                      SizedBox(height: 8),
+                                      const SizedBox(height: 8),
                                       Text(document['location']),
-                                      SizedBox(height: 8),
+                                      const SizedBox(height: 8),
                                       Text(document['date']),
                                     ],
                                   ),
@@ -92,7 +90,7 @@ class _EcoEventsState extends State<EcoEvents> {
           );
         },
         tooltip: 'Add Event',
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
@@ -122,44 +120,44 @@ class ViewEventScreen extends StatelessWidget {
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Location:',
+                            const Text('Location:',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(document['location']),
-                            SizedBox(height: 8),
-                            Text('Date:',
+                            const SizedBox(height: 8),
+                            const Text('Date:',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(document['date']),
-                            SizedBox(height: 8),
-                            Text('Time:',
+                            const SizedBox(height: 8),
+                            const Text('Time:',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(document['time']),
-                            SizedBox(height: 8),
-                            Text('Description:',
+                            const SizedBox(height: 8),
+                            const Text('Description:',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(document['description']),
-                            SizedBox(height: 8),
-                            Text('Organizer:',
+                            const SizedBox(height: 8),
+                            const Text('Organizer:',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(document['organizer']),
-                            SizedBox(height: 8),
-                            Text('Contact Number:',
+                            const SizedBox(height: 8),
+                            const Text('Contact Number:',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(document['contact']),
-                            SizedBox(height: 8),
-                            Text('Email:',
+                            const SizedBox(height: 8),
+                            const Text('Email:',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(document['email']),
-                            SizedBox(height: 8),
-                            Text('Website:',
+                            const SizedBox(height: 8),
+                            const Text('Website:',
                                 style: TextStyle(fontWeight: FontWeight.bold)),
-                            SizedBox(height: 4),
+                            const SizedBox(height: 4),
                             Text(document['website']),
                           ])))),
         ),
@@ -189,7 +187,7 @@ class _AddEventScreenState extends State<AddEventScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Event'),
+        title: const Text('Add Event'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -198,61 +196,61 @@ class _AddEventScreenState extends State<AddEventScreen> {
             children: [
               TextField(
                 controller: _eventController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: 'Event Name'),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               TextField(
                 controller: _locationController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: 'Location'),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               TextField(
                 controller: _dateController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: 'Date'),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               TextField(
                 controller: _timeController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: 'Time'),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               TextField(
                 controller: _descriptionController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: 'Description'),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               TextField(
                 controller: _organizerController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: 'Organizer'),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               TextField(
                 controller: _contactController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: 'Contact Number'),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               TextField(
                 controller: _emailController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: 'Email'),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               TextField(
                 controller: _websiteController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: 'Website'),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               TextField(
                 controller: _categoryController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                     border: OutlineInputBorder(), labelText: 'Category'),
               ),
             ],
@@ -285,8 +283,8 @@ class _AddEventScreenState extends State<AddEventScreen> {
             _websiteController.clear();
             _categoryController.clear();
           },
-          label: Text('Add Event'),
-          icon: Icon(Icons.add)),
+          label: const Text('Add Event'),
+          icon: const Icon(Icons.add)),
     );
   }
 }

@@ -24,7 +24,7 @@ class _OnboardingScreen2State extends State<OnboardingScreen2> {
             const SizedBox(
               height: 50,
             ),
-            Center(
+            const Center(
               child: CircleAvatar(
                 radius: 90,
                 backgroundImage: NetworkImage(

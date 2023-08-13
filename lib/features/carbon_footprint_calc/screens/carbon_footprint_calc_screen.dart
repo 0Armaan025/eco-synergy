@@ -24,7 +24,7 @@ class _CarbonFootprintScreenState extends State<CarbonFootprintScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Carbon Footprint Calculator'),
+        title: const Text('Carbon Footprint Calculator'),
         backgroundColor: Colors.green,
       ),
       drawer: buildstylishDrawer(context),
@@ -35,7 +35,7 @@ class _CarbonFootprintScreenState extends State<CarbonFootprintScreen> {
           child: Column(
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Electricity (kWh)',
                   labelStyle: TextStyle(color: Colors.green),
                   focusedBorder: OutlineInputBorder(
@@ -49,9 +49,9 @@ class _CarbonFootprintScreenState extends State<CarbonFootprintScreen> {
                   });
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Gas (therms)',
                   labelStyle: TextStyle(color: Colors.green),
                   focusedBorder: OutlineInputBorder(
@@ -65,9 +65,9 @@ class _CarbonFootprintScreenState extends State<CarbonFootprintScreen> {
                   });
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextFormField(
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'Water (gallons)',
                   labelStyle: TextStyle(color: Colors.green),
                   focusedBorder: OutlineInputBorder(
@@ -81,16 +81,17 @@ class _CarbonFootprintScreenState extends State<CarbonFootprintScreen> {
                   });
                 },
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: _calculateCarbonFootprint,
-                child: Text('Calculate', style: TextStyle(color: Colors.white)),
                 style: ElevatedButton.styleFrom(
                     primary: Colors.green, elevation: 5),
+                child: const Text('Calculate', style: TextStyle(color: Colors.white)),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               Text('Your carbon footprint is $_carbonFootprint lbs CO2e',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold)),
             ],
           ),
         ),

@@ -29,25 +29,25 @@ class _CustomTextFieldState extends State<CustomTextField> {
         controller: widget.controller,
         obscureText: widget.isObscure,
         decoration: InputDecoration(
-          hintStyle: TextStyle(
+          hintStyle: const TextStyle(
             color: Colors.white70,
           ),
           hintText: widget.hintText,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.white,
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.white,
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
-            borderSide: BorderSide(
+            borderSide: const BorderSide(
               color: Colors.white,
               width: 1.2,
             ),

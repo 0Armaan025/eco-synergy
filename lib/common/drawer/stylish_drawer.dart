@@ -1,6 +1,5 @@
 import 'package:eco_synergy/constants/constants.dart';
 import 'package:eco_synergy/constants/utils.dart';
-import 'package:eco_synergy/features/auth/screens/login/screens/login_screen.dart';
 import 'package:eco_synergy/features/carbon_footprint_calc/screens/carbon_footprint_calc_screen.dart';
 import 'package:eco_synergy/features/eco_shopping_guru/screens/bio_search_screen.dart';
 import 'package:eco_synergy/features/eco_voyager/screens/eco_voyager_screen.dart';
@@ -11,9 +10,9 @@ import 'package:eco_synergy/features/recipe/screens/recipe_screen.dart';
 import 'package:flutter/material.dart';
 
 Widget buildstylishDrawer(BuildContext context) {
-  final Color primaryGreen = Color.fromARGB(255, 170, 198, 241);
-  final Color secondaryGreen = Color.fromARGB(255, 129, 115, 207);
-  final Color headerGreen = Color.fromARGB(255, 74, 68, 248);
+  Color primaryGreen = const Color.fromARGB(255, 170, 198, 241);
+  Color secondaryGreen = const Color.fromARGB(255, 129, 115, 207);
+  Color headerGreen = const Color.fromARGB(255, 74, 68, 248);
 
   return Drawer(
     child: Stack(
@@ -34,11 +33,11 @@ Widget buildstylishDrawer(BuildContext context) {
           padding: EdgeInsets.zero,
           children: <Widget>[
             Container(
-              padding: EdgeInsets.only(top: 40, bottom: 20),
+              padding: const EdgeInsets.only(top: 40, bottom: 20),
               decoration: BoxDecoration(
                 color: headerGreen,
               ),
-              child: Column(
+              child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -69,11 +68,11 @@ Widget buildstylishDrawer(BuildContext context) {
               ),
             ),
             ListTile(
-              leading: Icon(
+              leading: const Icon(
                 Icons.home,
                 color: Colors.white,
               ),
-              title: Text(
+              title: const Text(
                 "Home",
                 style: TextStyle(color: Colors.white),
               ),
@@ -82,11 +81,11 @@ Widget buildstylishDrawer(BuildContext context) {
               },
             ),
             ListTile(
-              leading: Icon(
+              leading: const Icon(
                 Icons.person,
                 color: Colors.white,
               ),
-              title: Text(
+              title: const Text(
                 "Profile",
                 style: TextStyle(
                   color: Colors.white,
@@ -97,11 +96,11 @@ Widget buildstylishDrawer(BuildContext context) {
               },
             ),
             ListTile(
-              leading: Icon(
+              leading: const Icon(
                 Icons.food_bank,
                 color: Colors.white,
               ),
-              title: Text(
+              title: const Text(
                 "Get Recipes",
                 style: TextStyle(
                   color: Colors.white,
@@ -112,11 +111,11 @@ Widget buildstylishDrawer(BuildContext context) {
               },
             ),
             ListTile(
-              leading: Icon(
+              leading: const Icon(
                 Icons.calculate,
                 color: Colors.white,
               ),
-              title: Text(
+              title: const Text(
                 "CarbonFootprint Calculator",
                 style: TextStyle(
                   color: Colors.white,
@@ -127,11 +126,11 @@ Widget buildstylishDrawer(BuildContext context) {
               },
             ),
             ListTile(
-              leading: Icon(
+              leading: const Icon(
                 Icons.shopping_cart,
                 color: Colors.white,
               ),
-              title: Text(
+              title: const Text(
                 "Serach Eco-friendly Products",
                 style: TextStyle(
                   color: Colors.white,
@@ -142,11 +141,11 @@ Widget buildstylishDrawer(BuildContext context) {
               },
             ),
             ListTile(
-              leading: Icon(
+              leading: const Icon(
                 Icons.flight,
                 color: Colors.white,
               ),
-              title: Text(
+              title: const Text(
                 "Eco-friendly flights",
                 style: TextStyle(
                   color: Colors.white,
@@ -157,29 +156,29 @@ Widget buildstylishDrawer(BuildContext context) {
               },
             ),
             ListTile(
-              leading: Icon(
+              leading: const Icon(
                 Icons.event,
                 color: Colors.white,
               ),
-              title: Text(
+              title: const Text(
                 "EcoHub Events",
                 style: TextStyle(
                   color: Colors.white,
                 ),
               ),
               onTap: () {
-                moveScreen(context, EcoEvents());
+                moveScreen(context, const EcoEvents());
               },
             ),
-            Divider(color: Colors.white),
+            const Divider(color: Colors.white),
             InkWell(
               onTap: () {
                 firebaseAuth.signOut();
                 // moveScreen(context, SigninScreen());
               },
               child: ListTile(
-                leading: Icon(Icons.exit_to_app, color: Colors.white),
-                title: Text(
+                leading: const Icon(Icons.exit_to_app, color: Colors.white),
+                title: const Text(
                   "LogOut",
                   style: TextStyle(color: Colors.white),
                 ),

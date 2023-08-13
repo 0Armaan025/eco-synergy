@@ -94,7 +94,7 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
     } catch (error) {
       print('Error adding instance: $error');
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Error adding instance. Please try again.'),
           backgroundColor: Colors.red,
         ),
@@ -106,13 +106,13 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Saving Instance'),
+        title: const Text('Add Saving Instance'),
       ),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              const Color.fromARGB(255, 193, 217, 237),
+              Color.fromARGB(255, 193, 217, 237),
               Color.fromARGB(255, 247, 241, 248),
             ],
             begin: Alignment.topLeft,
@@ -142,7 +142,7 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
                   },
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextField(
                 controller: _activityController,
                 decoration: InputDecoration(
@@ -153,7 +153,7 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
                   ),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextField(
                 controller: _timeController,
                 decoration: InputDecoration(
@@ -164,7 +164,7 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
                   ),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               TextField(
                 controller: _energyController,
                 decoration: InputDecoration(
@@ -175,10 +175,9 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
                   ),
                 ),
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               ElevatedButton(
                 onPressed: _addInstanceToFirestore,
-                child: Text('Add Instance'),
                 style: ElevatedButton.styleFrom(
                   primary: Colors.white,
                   onPrimary: Colors.black,
@@ -186,6 +185,7 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
                     borderRadius: BorderRadius.circular(32.0),
                   ),
                 ),
+                child: const Text('Add Instance'),
               ),
             ],
           ),

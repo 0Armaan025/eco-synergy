@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class EcoVoyagerScreen extends StatefulWidget {
   @override
   _EcoVoyagerScreenState createState() => _EcoVoyagerScreenState();
@@ -13,10 +12,10 @@ class _EcoVoyagerScreenState extends State<EcoVoyagerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Eco-Voyager'),
+        title: const Text('Eco-Voyager'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -61,28 +60,29 @@ class _EcoVoyagerScreenState extends State<EcoVoyagerScreen> {
 
         return SingleChildScrollView(
           child: AlertDialog(
-            title: Text('Add Flight'),
+            title: const Text('Add Flight'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(
-                  decoration: InputDecoration(labelText: 'Flight Number'),
+                  decoration: const InputDecoration(labelText: 'Flight Number'),
                   onChanged: (value) => flightNumber = value,
                 ),
                 TextField(
-                  decoration: InputDecoration(labelText: 'Departure'),
+                  decoration: const InputDecoration(labelText: 'Departure'),
                   onChanged: (value) => departure = value,
                 ),
                 TextField(
-                  decoration: InputDecoration(labelText: 'Arrival'),
+                  decoration: const InputDecoration(labelText: 'Arrival'),
                   onChanged: (value) => arrival = value,
                 ),
                 TextField(
-                  decoration: InputDecoration(labelText: 'Departure Time'),
+                  decoration:
+                      const InputDecoration(labelText: 'Departure Time'),
                   onChanged: (value) => departureTime = value,
                 ),
                 TextField(
-                  decoration: InputDecoration(labelText: 'Arrival Time'),
+                  decoration: const InputDecoration(labelText: 'Arrival Time'),
                   onChanged: (value) => arrivalTime = value,
                 ),
               ],
@@ -92,7 +92,7 @@ class _EcoVoyagerScreenState extends State<EcoVoyagerScreen> {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text('Cancel'),
+                child: const Text('Cancel'),
               ),
               TextButton(
                 onPressed: () {
@@ -112,7 +112,7 @@ class _EcoVoyagerScreenState extends State<EcoVoyagerScreen> {
                     setState(() {});
                   }
                 },
-                child: Text('Add'),
+                child: const Text('Add'),
               ),
             ],
           ),
@@ -131,15 +131,15 @@ class FlightsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Available Flights'),
+        title: const Text('Available Flights'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ...flights.map((flight) => FlightCard(flight: flight)),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: flights.isNotEmpty
                   ? () => Navigator.push(
@@ -150,7 +150,7 @@ class FlightsScreen extends StatelessWidget {
                         ),
                       )
                   : null,
-              child: Text('Register for Selected Flight'),
+              child: const Text('Register for Selected Flight'),
             ),
           ],
         ),
@@ -168,39 +168,42 @@ class RegistrationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registration'),
+        title: const Text('Registration'),
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             FlightCard(flight: flight),
-            SizedBox(height: 16.0),
-            TextField(decoration: InputDecoration(labelText: 'Full Name')),
-            SizedBox(height: 8.0),
-            TextField(decoration: InputDecoration(labelText: 'Email')),
-            SizedBox(height: 8.0),
-            TextField(decoration: InputDecoration(labelText: 'Phone Number')),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
+            const TextField(
+                decoration: InputDecoration(labelText: 'Full Name')),
+            const SizedBox(height: 8.0),
+            const TextField(decoration: InputDecoration(labelText: 'Email')),
+            const SizedBox(height: 8.0),
+            const TextField(
+                decoration: InputDecoration(labelText: 'Phone Number')),
+            const SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: () {
                 // Implement registration functionality here
                 showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
-                    title: Text('Registration Successful'),
-                    content: Text('Thank you for registering for a flight!'),
+                    title: const Text('Registration Successful'),
+                    content:
+                        const Text('Thank you for registering for a flight!'),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context),
-                        child: Text('OK'),
+                        child: const Text('OK'),
                       ),
                     ],
                   ),
                 );
               },
-              child: Text('Submit Registration'),
+              child: const Text('Submit Registration'),
             ),
           ],
         ),
@@ -220,15 +223,16 @@ class FlightCard extends StatelessWidget {
       elevation: 4.0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16.0)),
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               flight['flightNumber'] ?? '',
-              style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+              style:
+                  const TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 8.0),
+            const SizedBox(height: 8.0),
             Row(
               children: [
                 Expanded(
@@ -238,12 +242,12 @@ class FlightCard extends StatelessWidget {
                       Text(flight['departure'] ?? ''),
                       Text(
                         flight['departureTime'] ?? '',
-                        style: TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey),
                       ),
                     ],
                   ),
                 ),
-                Icon(Icons.flight_takeoff),
+                const Icon(Icons.flight_takeoff),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.end,
@@ -251,7 +255,7 @@ class FlightCard extends StatelessWidget {
                       Text(flight['arrival'] ?? ''),
                       Text(
                         flight['arrivalTime'] ?? '',
-                        style: TextStyle(color: Colors.grey),
+                        style: const TextStyle(color: Colors.grey),
                       ),
                     ],
                   ),
@@ -271,7 +275,7 @@ class EcoExperienceCard extends StatelessWidget {
   final String imageUrl;
   final VoidCallback onTap;
 
-  EcoExperienceCard({
+  const EcoExperienceCard({
     required this.title,
     required this.description,
     required this.imageUrl,
@@ -290,7 +294,8 @@ class EcoExperienceCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
+              borderRadius:
+                  const BorderRadius.vertical(top: Radius.circular(16.0)),
               child: Image.network(
                 imageUrl,
                 fit: BoxFit.cover,
@@ -298,17 +303,18 @@ class EcoExperienceCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     title,
-                    style:
-                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 20.0, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 8.0),
-                  Text(description, style: TextStyle(fontSize: 16.0)),
+                  const SizedBox(height: 8.0),
+                  Text(description, style: const TextStyle(fontSize: 16.0)),
                 ],
               ),
             ),

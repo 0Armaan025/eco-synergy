@@ -1,6 +1,3 @@
-import 'package:eco_synergy/common/buttons/custom_login_button.dart';
-import 'package:eco_synergy/common/text_fields/custom_text_field.dart';
-import 'package:eco_synergy/constants/constants.dart';
 import 'package:eco_synergy/constants/utils.dart';
 import 'package:eco_synergy/features/auth/controllers/auth_controller.dart';
 import 'package:eco_synergy/features/auth/screens/signup/screens/signup_screen.dart';
@@ -32,7 +29,6 @@ class _SigninScreenState extends State<SigninScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     animationUrl = defaultTargetPlatform == TargetPlatform.android ||
             defaultTargetPlatform == TargetPlatform.iOS
