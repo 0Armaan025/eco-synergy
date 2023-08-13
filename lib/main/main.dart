@@ -1,6 +1,7 @@
 import 'package:eco_synergy/features/auth/screens/login/screens/login_screen.dart';
 import 'package:eco_synergy/features/eco_voyager/screens/eco_voyager_screen.dart';
 import 'package:eco_synergy/features/ecohub_events/screens/eco_hub_events.dart';
+import 'package:eco_synergy/features/home/screens/home_screen.dart';
 import 'package:eco_synergy/features/recipe/screens/recipe_screen.dart';
 import 'package:eco_synergy/features/splash/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: RecipeScreen(),
+      home: HomeScreen(),
     );
   }
 }

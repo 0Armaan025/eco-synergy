@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eco_synergy/features/saving_instances/screens/add_saving_instances_screen.dart';
@@ -36,14 +37,27 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   getData() async {
-    var firestoreData = firestore
-        .collection('users')
-        .doc(firebaseAuth.currentUser?.uid ?? '')
-        .get()
-        .then((DocumentSnapshot snapshot) {
-      coins = snapshot.get('ecoCurrency');
-      setState(() {});
-    });
+    try {
+      final user = firebaseAuth.currentUser;
+      if (user != null) {
+        var firestoreData = _firestore
+            .collection('users')
+            .doc(user.uid)
+            .get()
+            .then((DocumentSnapshot snapshot) {
+          coins = snapshot.get('ecoCurrency');
+          setState(() {});
+        });
+      } else {
+        if (kDebugMode) {
+          print('User is not logged in.');
+        }
+      }
+    } catch (error) {
+      if (kDebugMode) {
+        print('Error getting user data: $error');
+      }
+    }
   }
 
   Future<void> _loadSavedInstances() async {
@@ -62,7 +76,9 @@ class _HomeScreenState extends State<HomeScreen> {
         savedEnergyInstances.addAll(instances);
       });
     } catch (error) {
-      print('Error loading instances: $error');
+      if (kDebugMode) {
+        print('Error loading instances: $error');
+      }
     }
   }
 
@@ -74,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: PreferredSize(
         preferredSize: const Size(double.infinity, kToolbarHeight),
         child: AppBar(
-          title: Text('Home Screen'),
+          title: const Text('Home Screen'),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -86,19 +102,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           );
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.only(left: 0.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     "Good morning, Armaan! 👋🏻",
                     style: GoogleFonts.poppins(
@@ -107,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 4),
+                  const SizedBox(height: 4),
                   Text(
                     "12th August, 2023",
                     style: GoogleFonts.poppins(
@@ -119,7 +135,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             Center(
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 40),
@@ -133,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       color: Colors.grey.withOpacity(0.5),
                       spreadRadius: 5,
                       blurRadius: 7,
-                      offset: Offset(0, 3),
+                      offset: const Offset(0, 3),
                     ),
                   ],
                 ),
@@ -141,23 +157,23 @@ class _HomeScreenState extends State<HomeScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.account_balance_wallet,
                       size: 48,
                       color: Colors.green,
                     ),
-                    SizedBox(height: 8),
-                    Text(
+                    const SizedBox(height: 8),
+                    const Text(
                       'Eco Coins',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    SizedBox(height: 4),
+                    const SizedBox(height: 4),
                     Text(
                       '$coins 🪙', // Display the actual currency amount here
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
@@ -166,8 +182,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
+            const SizedBox(height: 20),
             Center(
               child: Text(
                 "Your Last Saving Instances ⚡",
@@ -177,7 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             ListView.builder(
               shrinkWrap: true,
               itemCount: savedEnergyInstances.length,
@@ -194,7 +210,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     child: ListTile(
                       tileColor: Colors.grey.shade100,
-                      leading: Icon(Icons.lightbulb, color: Colors.yellow),
+                      leading:
+                          const Icon(Icons.lightbulb, color: Colors.yellow),
                       title: Text(
                         instance.process,
                         style: GoogleFonts.poppins(
@@ -206,9 +223,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: 4),
+                          const SizedBox(height: 4),
                           Text('Time: ${instance.time}'),
-                          SizedBox(height: 2),
+                          const SizedBox(height: 2),
                           Text('Energy Saved: ${instance.energySaved}'),
                         ],
                       ),
