@@ -125,11 +125,11 @@ class _RecipeScreenState extends State<RecipeScreen> {
           ),
           ElevatedButton(
             onPressed: _searchRecipes,
-            child: Text('Search for recipes'),
+            child: const Text('Search for recipes'),
           ),
           Expanded(
             child: GridView.builder(
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2, // Number of columns in the grid
                 mainAxisSpacing: 8.0,
                 crossAxisSpacing: 8.0,
@@ -141,7 +141,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Image.network(_recipes[index]['image'], height: 100.0),
+                      Image.network(_recipes[index]['image'], height: 80.0),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: InkWell(
@@ -160,7 +160,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
                           },
                           child: Text(
                             _recipes[index]['title'],
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.blue,
                               decoration: TextDecoration.underline,
                             ),
@@ -169,7 +169,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
                       ),
                       Text(
                         'Used Ingredients: ${_recipes[index]['usedIngredients'].join(', ')}',
-                        style: TextStyle(fontSize: 8.2),
+                        style: const TextStyle(fontSize: 8.2),
                       ),
                     ],
                   ),
