@@ -127,7 +127,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    "12th August, 2023",
+                    "13th August, 2023",
                     style: GoogleFonts.poppins(
                       color: Colors.grey,
                       fontSize: 17,

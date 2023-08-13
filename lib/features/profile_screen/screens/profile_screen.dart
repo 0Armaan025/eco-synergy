@@ -14,7 +14,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   void initState() {
-
     super.initState();
     getData();
   }
@@ -83,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       child: Padding(
                           padding: EdgeInsets.symmetric(
                               vertical: 12, horizontal: 30),
-                          child: Text("Name : John Doe",
+                          child: Text("Name : Armaan",
                               style: TextStyle(fontSize: 18)))),
                   const Card(
                       margin:
@@ -95,8 +94,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: Text("Email : armaan33000@gmail.com",
                               style: TextStyle(fontSize: 16)))),
                   Card(
-                      margin:
-                          const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0),
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 8.0),
                       elevation: 2.0,
                       child: Padding(
                           padding: const EdgeInsets.symmetric(

@@ -1,4 +1,5 @@
 import 'package:eco_synergy/constants/utils.dart';
+import 'package:eco_synergy/features/auth/screens/signup/screens/signup_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -74,7 +75,7 @@ class _OnboardingScreen2State extends State<OnboardingScreen2> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  moveScreen(context, HomeScreen(), isPushReplacement: true);
+                  moveScreen(context, SignUpScreen(), isPushReplacement: true);
                 },
               ),
             ),
