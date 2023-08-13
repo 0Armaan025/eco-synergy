@@ -1,17 +1,5 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(EcoVoyagerApp());
-}
-
-class EcoVoyagerApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: EcoVoyagerScreen(),
-    );
-  }
-}
 
 class EcoVoyagerScreen extends StatefulWidget {
   @override
