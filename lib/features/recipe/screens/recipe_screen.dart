@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eco_synergy/constants/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
@@ -78,6 +79,25 @@ class _RecipeScreenState extends State<RecipeScreen> {
 
     try {
       await Share.share(tweetText);
+      final userId = firebaseAuth.currentUser?.uid ?? '';
+      final userRef =
+          FirebaseFirestore.instance.collection('users').doc(userId);
+
+      var firestoreData = await userRef.get();
+
+      String money = firestoreData.get('ecoCurrency') ?? '0';
+
+      try {
+        int parsedMoney = int.parse(money);
+        await userRef.update({
+          'ecoCurrency': (parsedMoney + 50).toString(),
+        });
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("yay! congrats on 50 more points! 🎉"),
+        ));
+      } catch (error) {
+        print('Error updating ecoCurrency: $error');
+      }
     } catch (e) {
       if (kDebugMode) {
         print("Error sharing on Twitter: $e");

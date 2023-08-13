@@ -44,14 +44,14 @@ Widget buildstylishDrawer(BuildContext context) {
                 children: [
                   CircleAvatar(
                     backgroundImage: NetworkImage(
-                        'https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/002/491/831/datas/original.png'),
+                        'https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/002/022/473/datas/original.png'),
                     radius: 40,
                   ),
                   SizedBox(
                     height: 10,
                   ),
                   Text(
-                    "${userName}",
+                    "Armaan",
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -59,7 +59,7 @@ Widget buildstylishDrawer(BuildContext context) {
                     ),
                   ),
                   Text(
-                    "${userName}",
+                    "armaan33000@gmail.com",
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.white,
