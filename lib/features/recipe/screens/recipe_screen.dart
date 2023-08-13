@@ -2,6 +2,12 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
+void main() {
+  runApp(MaterialApp(
+    home: RecipeScreen(),
+  ));
+}
+
 class RecipeScreen extends StatefulWidget {
   @override
   _RecipeScreenState createState() => _RecipeScreenState();
@@ -23,14 +29,12 @@ class _RecipeScreenState extends State<RecipeScreen> {
   }
 
   void _searchRecipes() async {
-    // Replace with your own API key and endpoint
-    final String apiKey = '8063cdcba8ca4047a57db98abb4844e2';
+    final String apiKey = '8063cdcba8ca4047a57db98abb4844e2'; // Your API key
     final String endpoint =
         'https://api.spoonacular.com/recipes/findByIngredients';
 
-    // Build the query parameters
     final String ingredients = _ingredients.join(',');
-    final int number = 10; // Number of results to return
+    final int number = 10;
     final Map<String, String> queryParams = {
       'apiKey': apiKey,
       'ingredients': ingredients,
@@ -39,10 +43,8 @@ class _RecipeScreenState extends State<RecipeScreen> {
     };
     final Uri uri = Uri.parse(endpoint).replace(queryParameters: queryParams);
 
-    // Send the request
     final response = await http.get(uri);
     if (response.statusCode == 200) {
-      // Parse the response
       final List<dynamic> data = jsonDecode(response.body);
       setState(() {
         _recipes = data.map((recipe) {
@@ -59,9 +61,26 @@ class _RecipeScreenState extends State<RecipeScreen> {
         }).toList();
       });
     } else {
-      // Handle error
       print('Error: ${response.statusCode}');
     }
+  }
+
+  void _shareRecipe(String recipeTitle) {
+    String message = "I made a delicious recipe: $recipeTitle! Check it out.";
+    String twitterUrl =
+        "https://twitter.com/intent/tweet?text=${Uri.encodeComponent(message)}";
+
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => WebviewScaffold(
+    //       url: twitterUrl,
+    //       appBar: AppBar(
+    //         title: Text('Share on Twitter'),
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 
   @override
@@ -146,6 +165,38 @@ class _RecipeScreenState extends State<RecipeScreen> {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          if (_recipes.isNotEmpty) {
+            showModalBottomSheet(
+              context: context,
+              builder: (context) {
+                return Container(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ListTile(
+                        leading: Icon(Icons.share),
+                        title: Text('Share Recipe'),
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.share_outlined),
+                        title: Text('Share on Twitter'),
+                        onTap: () {
+                          _shareRecipe(
+                              _recipes[0]['title']); // Share the first recipe
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          }
+        },
+        child: Icon(Icons.share),
       ),
     );
   }
