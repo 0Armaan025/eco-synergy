@@ -1,6 +1,9 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:eco_synergy/common/drawer/stylish_drawer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -15,7 +18,7 @@ class RecipeScreen extends StatefulWidget {
 
 class _RecipeScreenState extends State<RecipeScreen> {
   final TextEditingController _controller = TextEditingController();
-  List<String> _ingredients = [];
+  final List<String> _ingredients = [];
   List<Map<String, dynamic>> _recipes = [];
   bool _isVeg = false;
 
@@ -29,12 +32,13 @@ class _RecipeScreenState extends State<RecipeScreen> {
   }
 
   void _searchRecipes() async {
-    final String apiKey = '8063cdcba8ca4047a57db98abb4844e2'; // Your API key
-    final String endpoint =
+    // Replace with your own API key and endpoint
+    const String apiKey = '8063cdcba8ca4047a57db98abb4844e2';
+    const String endpoint =
         'https://api.spoonacular.com/recipes/findByIngredients';
 
     final String ingredients = _ingredients.join(',');
-    final int number = 10;
+    const int number = 10; // Number of results to return
     final Map<String, String> queryParams = {
       'apiKey': apiKey,
       'ingredients': ingredients,
@@ -61,7 +65,10 @@ class _RecipeScreenState extends State<RecipeScreen> {
         }).toList();
       });
     } else {
-      print('Error: ${response.statusCode}');
+      // Handle error
+      if (kDebugMode) {
+        print('Error: ${response.statusCode}');
+      }
     }
   }
 
@@ -87,8 +94,9 @@ class _RecipeScreenState extends State<RecipeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Recipe Finder'),
+        title: const Text('Recipe Finder'),
       ),
+      drawer: buildstylishDrawer(context),
       body: Column(
         children: [
           Padding(
@@ -98,7 +106,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
               decoration: InputDecoration(
                 labelText: 'Enter an ingredient',
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.add),
+                  icon: const Icon(Icons.add),
                   onPressed: _addIngredient,
                 ),
               ),
@@ -107,7 +115,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Vegetarian'),
+              const Text('Vegetarian'),
               Switch(
                 value: _isVeg,
                 onChanged: (value) {
@@ -125,7 +133,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
                 return ListTile(
                   title: Text(_ingredients[index]),
                   trailing: IconButton(
-                    icon: Icon(Icons.delete),
+                    icon: const Icon(Icons.delete),
                     onPressed: () {
                       setState(() {
                         _ingredients.removeAt(index);
@@ -152,9 +160,16 @@ class _RecipeScreenState extends State<RecipeScreen> {
                           Uri.encodeComponent(_recipes[index]['title']);
                       final String url =
                           'https://www.google.com/search?q=$query';
+                      if (await canLaunch(url)) {
+                        await launch(url);
+                      } else {
+                        if (kDebugMode) {
+                          print("Could not launch $url");
+                        }
+                      }
                     },
                     child: Text(_recipes[index]['title'],
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.blue,
                             decoration: TextDecoration.underline)),
                   ),
