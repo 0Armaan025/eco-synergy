@@ -1,8 +1,8 @@
-import 'package:eco_synergy/features/recipe/screens/recipe_screen.dart';
+import 'package:eco_synergy/features/auth/screens/login/screens/login_screen.dart';
+import 'package:eco_synergy/features/eco_voyager/screens/eco_voyager_screen.dart';
+import 'package:eco_synergy/features/onboarding/screens/onboarding_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-
-import '../features/eco_shopping_guru/screens/bio_search_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: RecipeScreen(),
+      home: EcoVoyagerScreen(),
     );
   }
 }

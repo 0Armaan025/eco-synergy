@@ -5,12 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:eco_synergy/common/drawer/stylish_drawer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-void main() {
-  runApp(MaterialApp(
-    home: RecipeScreen(),
-  ));
-}
-
 class RecipeScreen extends StatefulWidget {
   @override
   _RecipeScreenState createState() => _RecipeScreenState();
@@ -37,6 +31,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
     const String endpoint =
         'https://api.spoonacular.com/recipes/findByIngredients';
 
+    // Build the query parameters
     final String ingredients = _ingredients.join(',');
     const int number = 10; // Number of results to return
     final Map<String, String> queryParams = {
@@ -47,8 +42,10 @@ class _RecipeScreenState extends State<RecipeScreen> {
     };
     final Uri uri = Uri.parse(endpoint).replace(queryParameters: queryParams);
 
+    // Send the request
     final response = await http.get(uri);
     if (response.statusCode == 200) {
+      // Parse the response
       final List<dynamic> data = jsonDecode(response.body);
       setState(() {
         _recipes = data.map((recipe) {
@@ -70,24 +67,6 @@ class _RecipeScreenState extends State<RecipeScreen> {
         print('Error: ${response.statusCode}');
       }
     }
-  }
-
-  void _shareRecipe(String recipeTitle) {
-    String message = "I made a delicious recipe: $recipeTitle! Check it out.";
-    String twitterUrl =
-        "https://twitter.com/intent/tweet?text=${Uri.encodeComponent(message)}";
-
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => WebviewScaffold(
-    //       url: twitterUrl,
-    //       appBar: AppBar(
-    //         title: Text('Share on Twitter'),
-    //       ),
-    //     ),
-    //   ),
-    // );
   }
 
   @override
@@ -180,38 +159,6 @@ class _RecipeScreenState extends State<RecipeScreen> {
             ),
           ),
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          if (_recipes.isNotEmpty) {
-            showModalBottomSheet(
-              context: context,
-              builder: (context) {
-                return Container(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ListTile(
-                        leading: Icon(Icons.share),
-                        title: Text('Share Recipe'),
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.share_outlined),
-                        title: Text('Share on Twitter'),
-                        onTap: () {
-                          _shareRecipe(
-                              _recipes[0]['title']); // Share the first recipe
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ],
-                  ),
-                );
-              },
-            );
-          }
-        },
-        child: Icon(Icons.share),
       ),
     );
   }
