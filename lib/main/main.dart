@@ -1,5 +1,7 @@
-import 'package:eco_synergy/features/auth/screens/signup/screens/signup_screen.dart';
-
+import 'package:eco_synergy/features/auth/screens/login/screens/login_screen.dart';
+import 'package:eco_synergy/features/eco_voyager/screens/eco_voyager_screen.dart';
+import 'package:eco_synergy/features/ecohub_events/screens/eco_hub_events.dart';
+import 'package:eco_synergy/features/onboarding/screens/onboarding_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -16,13 +18,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: SignUpScreen(),
+      home: EcoEvents(
+        title: 'title',
+      ),
     );
   }
 }

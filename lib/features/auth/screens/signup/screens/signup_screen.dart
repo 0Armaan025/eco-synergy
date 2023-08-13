@@ -91,7 +91,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final model = UserModel(
       name: _nameController.text,
       email: _emailController.text,
-      pass: _passwordController.text, ecoCurrency: '0',uid: '',
+      pass: _passwordController.text,
+      ecoCurrency: '0',
+      uid: '',
     );
 
     AuthController controller = AuthController();
@@ -201,9 +203,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             keyboardType: TextInputType.emailAddress,
                             style: const TextStyle(fontSize: 14),
                             cursorColor: Colors.grey,
+                            obscureText: true,
                             decoration: const InputDecoration(
                               labelText: 'Password',
                               filled: true,
+                              
                               border: OutlineInputBorder(
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),
@@ -222,7 +226,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             height: 20,
                           ),
                           GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                signUp(context);
+                              },
                               child: const CustomButton(text: 'Sign Up')),
                           const SizedBox(
                             height: 20,
