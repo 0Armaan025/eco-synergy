@@ -1,7 +1,12 @@
 import 'package:eco_synergy/constants/constants.dart';
 import 'package:eco_synergy/constants/utils.dart';
 import 'package:eco_synergy/features/auth/screens/login/screens/login_screen.dart';
+import 'package:eco_synergy/features/carbon_footprint_calc/screens/carbon_footprint_calc_screen.dart';
+import 'package:eco_synergy/features/eco_shopping_guru/screens/bio_search_screen.dart';
+import 'package:eco_synergy/features/eco_voyager/screens/eco_voyager_screen.dart';
+import 'package:eco_synergy/features/ecohub_events/screens/eco_hub_events.dart';
 import 'package:eco_synergy/features/home/screens/home_screen.dart';
+import 'package:eco_synergy/features/recipe/screens/recipe_screen.dart';
 import 'package:flutter/material.dart';
 
 Widget buildstylishDrawer(BuildContext context) {
@@ -87,6 +92,81 @@ Widget buildstylishDrawer(BuildContext context) {
                 ),
               ),
               onTap: () {},
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.food_bank,
+                color: Colors.white,
+              ),
+              title: Text(
+                "Get Recipes",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onTap: () {
+                moveScreen(context, RecipeScreen());
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.calculate,
+                color: Colors.white,
+              ),
+              title: Text(
+                "Footprint Calculator",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onTap: () {
+                moveScreen(context, CarbonFootprintScreen());
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.shopping_cart,
+                color: Colors.white,
+              ),
+              title: Text(
+                "Serach Products",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onTap: () {
+                moveScreen(context, BagScreen());
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.flight,
+                color: Colors.white,
+              ),
+              title: Text(
+                "Flight",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onTap: () {
+                moveScreen(context, EcoVoyagerScreen());
+              },
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.event,
+                color: Colors.white,
+              ),
+              title: Text(
+                "Add events",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+              onTap: () {
+                moveScreen(context, EcoEvents(title: "title"));
+              },
             ),
             Divider(color: Colors.white),
             InkWell(
