@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:eco_synergy/common/drawer/stylish_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:eco_synergy/features/saving_instances/screens/add_saving_instances_screen.dart';
@@ -87,6 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
+      drawer: buildstylishDrawer(context),
       appBar: PreferredSize(
         preferredSize: const Size(double.infinity, kToolbarHeight),
         child: AppBar(
@@ -172,8 +173,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      '$coins 🪙', // Display the actual currency amount here
-                      style: const TextStyle(
+                      '${coins} 🪙', // Display the actual currency amount here
+                      style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),

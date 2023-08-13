@@ -6,6 +6,7 @@ import 'package:eco_synergy/features/eco_shopping_guru/screens/bio_search_screen
 import 'package:eco_synergy/features/eco_voyager/screens/eco_voyager_screen.dart';
 import 'package:eco_synergy/features/ecohub_events/screens/eco_hub_events.dart';
 import 'package:eco_synergy/features/home/screens/home_screen.dart';
+import 'package:eco_synergy/features/profile_screen/screens/profile_screen.dart';
 import 'package:eco_synergy/features/recipe/screens/recipe_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -91,7 +92,9 @@ Widget buildstylishDrawer(BuildContext context) {
                   color: Colors.white,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                moveScreen(context, ProfileScreen());
+              },
             ),
             ListTile(
               leading: Icon(
