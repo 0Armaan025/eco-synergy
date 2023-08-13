@@ -30,12 +30,12 @@ class _SplashScreenState extends State<SplashScreen> {
         ),
         textAlign: TextAlign.center,
       ),
-      backgroundColor: Colors.black12,
+    backgroundColor: Colors.black12,
       animationDuration: const Duration(seconds: 5),
       splashTransition: SplashTransition.fadeTransition,
       pageTransitionType: PageTransitionType.theme,
       nextScreen: firebaseAuth.currentUser != null
-          ? const HomeScreen()
+          ? HomeScreen()
           : const OnboardingScreen(),
     );
   }

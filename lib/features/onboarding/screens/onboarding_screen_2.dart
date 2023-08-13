@@ -74,7 +74,7 @@ class _OnboardingScreen2State extends State<OnboardingScreen2> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  moveScreen(context, const HomeScreen(),isPushReplacement: true);
+                  moveScreen(context, HomeScreen(), isPushReplacement: true);
                 },
               ),
             ),

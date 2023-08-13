@@ -1,13 +1,11 @@
-import 'package:eco_synergy/common/drawer/stylish_drawer.dart';
-import 'package:eco_synergy/features/saving_instances/screens/add_saving_instances_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:eco_synergy/features/saving_instances/screens/add_saving_instances_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../constants/utils.dart';
+import '../../../constants/constants.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -25,24 +23,48 @@ class EnergySavingInstance {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<EnergySavingInstance> savedEnergyInstances = [
-    EnergySavingInstance(
-      process: 'Turned off the fan when not needed',
-      time: '12:30 PM',
-      energySaved: '30 watts',
-    ),
-    EnergySavingInstance(
-      process: 'Used a bicycle for commuting',
-      time: '08:15 AM',
-      energySaved: '50 calories',
-    ),
-    EnergySavingInstance(
-      process: 'Used a bicycle for commuting',
-      time: '08:15 AM',
-      energySaved: '50 calories',
-    ),
-    // Add more instances here
-  ];
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final List<EnergySavingInstance> savedEnergyInstances = [];
+
+  String coins = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSavedInstances();
+    getData();
+  }
+
+  getData() async {
+    var firestoreData = firestore
+        .collection('users')
+        .doc(firebaseAuth.currentUser?.uid ?? '')
+        .get()
+        .then((DocumentSnapshot snapshot) {
+      coins = snapshot.get('ecoCurrency');
+      setState(() {});
+    });
+  }
+
+  Future<void> _loadSavedInstances() async {
+    try {
+      final snapshot = await _firestore.collection('savingInstances').get();
+      final instances = snapshot.docs.map((doc) {
+        final data = doc.data() as Map<String, dynamic>;
+        return EnergySavingInstance(
+          process: data['instance'],
+          time: data['time'],
+          energySaved: data['energySaved'],
+        );
+      }).toList();
+
+      setState(() {
+        savedEnergyInstances.addAll(instances);
+      });
+    } catch (error) {
+      print('Error loading instances: $error');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,35 +73,32 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size(double.infinity, kToolbarHeight),
-        child: makeAppBar(context),
+        child: AppBar(
+          title: Text('Home Screen'),
+        ),
       ),
-      drawer: buildstylishDrawer(context),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          moveScreen(context, SavingInstanceScreen());
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => SavingInstanceScreen(),
+            ),
+          );
         },
-        child: IconButton(
-          icon: Icon(Icons.add),
-          onPressed: () {
-            moveScreen(context, SavingInstanceScreen());
-          },
-        ),
+        child: Icon(Icons.add),
       ),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              height: 30,
-            ),
+            SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.only(left: 0.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const SizedBox(
-                    height: 4,
-                  ),
+                  SizedBox(height: 4),
                   Text(
                     "Good morning, Armaan! 👋🏻",
                     style: GoogleFonts.poppins(
@@ -88,9 +107,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(
-                    height: 4,
-                  ),
+                  SizedBox(height: 4),
                   Text(
                     "12th August, 2023",
                     style: GoogleFonts.poppins(
@@ -102,9 +119,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
             ),
-            const SizedBox(
-              height: 30,
-            ),
+            SizedBox(height: 30),
             Center(
               child: Container(
                 margin: const EdgeInsets.symmetric(horizontal: 40),
@@ -122,7 +137,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ],
                 ),
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -141,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     SizedBox(height: 4),
                     Text(
-                      '200 🪙', // Display the actual currency amount here
+                      '$coins 🪙', // Display the actual currency amount here
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
@@ -151,12 +166,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 20,
-            ),
-            const SizedBox(
-              height: 20,
-            ),
+            SizedBox(height: 20),
+            SizedBox(height: 20),
             Center(
               child: Text(
                 "Your Last Saving Instances ⚡",
@@ -166,9 +177,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 10,
-            ),
+            SizedBox(height: 10),
             ListView.builder(
               shrinkWrap: true,
               itemCount: savedEnergyInstances.length,

@@ -1,3 +1,4 @@
+import 'package:eco_synergy/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -47,6 +48,42 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
       'timestamp': FieldValue.serverTimestamp(),
     };
 
+    final int energySaved = int.tryParse(_energyController.text) ?? 0;
+    int awardedCoins = 0;
+
+    if (energySaved > 500) {
+      awardedCoins = 300;
+    } else if (energySaved > 300) {
+      awardedCoins = 100;
+    } else if (energySaved > 150) {
+      awardedCoins = 50;
+    }
+
+    if (awardedCoins > 0) {
+      final userId = firebaseAuth.currentUser?.uid ?? '';
+      final userRef =
+          FirebaseFirestore.instance.collection('users').doc(userId);
+
+      String money = "";
+
+      var firestoreData = firestore
+          .collection('users')
+          .doc(firebaseAuth.currentUser?.uid ?? '')
+          .get()
+          .then((DocumentSnapshot snapshot) {
+        money = snapshot.get('ecoCurrency');
+        setState(() {});
+      });
+
+      try {
+        await userRef.update({
+          'ecoCurrency': (int.parse(money) + awardedCoins).toString(),
+        });
+      } catch (error) {
+        print('Error updating ecoCurrency: $error');
+      }
+    }
+
     try {
       await FirebaseFirestore.instance
           .collection('savingInstances')
@@ -57,12 +94,7 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
       _timeController.clear();
       _energyController.clear();
       // Show success message
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Instance added successfully.'),
-          backgroundColor: Colors.green,
-        ),
-      );
+      Navigator.pop(context); // Go back to previous screen
     } catch (error) {
       print('Error adding instance: $error');
       // Show error message
@@ -86,7 +118,7 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
           gradient: LinearGradient(
             colors: [
               const Color.fromARGB(255, 193, 217, 237),
-              Color.fromARGB(255, 247, 241, 248)
+              Color.fromARGB(255, 247, 241, 248),
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
