@@ -48,7 +48,9 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
       'timestamp': FieldValue.serverTimestamp(),
     };
 
-    final int energySaved = int.tryParse(_energyController.text) ?? 0;
+    print('_energyController.text: ${_energyController.text}');
+    final int energySaved = int.parse(_energyController.text) ?? 0;
+
     int awardedCoins = 0;
 
     if (energySaved > 500) {
@@ -57,6 +59,8 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
       awardedCoins = 100;
     } else if (energySaved > 150) {
       awardedCoins = 50;
+    } else {
+      awardedCoins = 20;
     }
 
     if (awardedCoins > 0) {
@@ -79,6 +83,7 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
         await userRef.update({
           'ecoCurrency': (int.parse(money) + awardedCoins).toString(),
         });
+        setState(() {});
       } catch (error) {
         print('Error updating ecoCurrency: $error');
       }
