@@ -60,7 +60,9 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         child: IconButton(
           icon: Icon(Icons.add),
-          onPressed: () {},
+          onPressed: () {
+            moveScreen(context, SavingInstanceScreen());
+          },
         ),
       ),
       body: SingleChildScrollView(

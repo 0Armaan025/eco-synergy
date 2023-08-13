@@ -128,32 +128,51 @@ class _RecipeScreenState extends State<RecipeScreen> {
             child: Text('Search for recipes'),
           ),
           Expanded(
-            child: ListView.builder(
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, // Number of columns in the grid
+                mainAxisSpacing: 8.0,
+                crossAxisSpacing: 8.0,
+              ),
               itemCount: _recipes.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  leading: Image.network(_recipes[index]['image'], width: 50.0),
-                  title: InkWell(
-                    onTap: () async {
-                      final String query =
-                          Uri.encodeComponent(_recipes[index]['title']);
-                      final String url =
-                          'https://www.google.com/search?q=$query';
-                      if (await canLaunch(url)) {
-                        await launch(url);
-                      } else {
-                        if (kDebugMode) {
-                          print("Could not launch $url");
-                        }
-                      }
-                    },
-                    child: Text(_recipes[index]['title'],
-                        style: const TextStyle(
-                            color: Colors.blue,
-                            decoration: TextDecoration.underline)),
+                return Card(
+                  elevation: 4.0,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Image.network(_recipes[index]['image'], height: 100.0),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: InkWell(
+                          onTap: () async {
+                            final String query =
+                                Uri.encodeComponent(_recipes[index]['title']);
+                            final String url =
+                                'https://www.google.com/search?q=$query';
+                            if (await canLaunch(url)) {
+                              await launch(url);
+                            } else {
+                              if (kDebugMode) {
+                                print("Could not launch $url");
+                              }
+                            }
+                          },
+                          child: Text(
+                            _recipes[index]['title'],
+                            style: TextStyle(
+                              color: Colors.blue,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Text(
+                        'Used Ingredients: ${_recipes[index]['usedIngredients'].join(', ')}',
+                        style: TextStyle(fontSize: 8.2),
+                      ),
+                    ],
                   ),
-                  subtitle: Text(
-                      'Ingredients used in this recipe are ${_recipes[index]['usedIngredients'].join(', ')}. Ingredients missed in this recipe are ${_recipes[index]['missedIngredients'].join(', ')}.'),
                 );
               },
             ),
