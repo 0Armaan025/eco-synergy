@@ -1,9 +1,12 @@
 import 'dart:convert';
+import 'package:eco_synergy/constants/constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
-import 'package:eco_synergy/common/drawer/stylish_drawer.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../../common/drawer/stylish_drawer.dart';
 
 class RecipeScreen extends StatefulWidget {
   @override
@@ -69,6 +72,25 @@ class _RecipeScreenState extends State<RecipeScreen> {
     }
   }
 
+  void _shareOnTwitter(String recipeTitle) async {
+    final String tweetText =
+        'Check out this delicious recipe: ( $recipeTitle! ) that I just made using Ecoly.\n\n$appTagLine\n\n\nSent through: Ecoly by Armaan';
+
+    try {
+      await Share.share(tweetText);
+    } catch (e) {
+      if (kDebugMode) {
+        print("Error sharing on Twitter: $e");
+      }
+    }
+  }
+
+  void _shareAllRecipesOnTwitter() async {
+    for (final recipe in _recipes) {
+      _shareOnTwitter(recipe['title']);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -129,8 +151,8 @@ class _RecipeScreenState extends State<RecipeScreen> {
           ),
           Expanded(
             child: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2, // Number of columns in the grid
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200,
                 mainAxisSpacing: 8.0,
                 crossAxisSpacing: 8.0,
               ),
@@ -141,7 +163,15 @@ class _RecipeScreenState extends State<RecipeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Image.network(_recipes[index]['image'], height: 80.0),
+                      Container(
+                        height: 80.0,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image: NetworkImage(_recipes[index]['image']),
+                          ),
+                        ),
+                      ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: InkWell(
@@ -171,11 +201,39 @@ class _RecipeScreenState extends State<RecipeScreen> {
                         'Used Ingredients: ${_recipes[index]['usedIngredients'].join(', ')}',
                         style: const TextStyle(fontSize: 8.2),
                       ),
+                      InkWell(
+                        onTap: () => _shareOnTwitter(_recipes[index]['title']),
+                        child: Icon(
+                          Icons.share,
+                          color: Colors.grey,
+                        ),
+                      ),
                     ],
                   ),
                 );
               },
             ),
+          ),
+        ],
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                _recipes.clear();
+                _ingredients.clear();
+              });
+            },
+            child: Icon(Icons.clear),
+            tooltip: 'Clear Search',
+          ),
+          SizedBox(height: 16),
+          FloatingActionButton(
+            onPressed: _shareAllRecipesOnTwitter,
+            child: Icon(Icons.share),
+            tooltip: 'Share All Recipes on Twitter',
           ),
         ],
       ),
