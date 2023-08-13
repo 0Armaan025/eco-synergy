@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-const appName = "EcoSynergy";
+const appName = "Ecoly";
 const appTagLine = "Elevate Life, Embrace Harmony";
 
 //firebase vars
