@@ -1,4 +1,5 @@
 import 'package:eco_synergy/common/drawer/stylish_drawer.dart';
+import 'package:eco_synergy/features/saving_instances/screens/add_saving_instances_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -54,7 +55,9 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       drawer: buildstylishDrawer(context),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          moveScreen(context, SavingInstanceScreen());
+        },
         child: IconButton(
           icon: Icon(Icons.add),
           onPressed: () {},

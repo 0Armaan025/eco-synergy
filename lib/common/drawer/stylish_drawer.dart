@@ -114,7 +114,7 @@ Widget buildstylishDrawer(BuildContext context) {
                 color: Colors.white,
               ),
               title: Text(
-                "Footprint Calculator",
+                "CarbonFootprint Calculator",
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -129,7 +129,7 @@ Widget buildstylishDrawer(BuildContext context) {
                 color: Colors.white,
               ),
               title: Text(
-                "Serach Products",
+                "Serach Eco-friendly Products",
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -144,7 +144,7 @@ Widget buildstylishDrawer(BuildContext context) {
                 color: Colors.white,
               ),
               title: Text(
-                "Flight",
+                "Eco-friendly flights",
                 style: TextStyle(
                   color: Colors.white,
                 ),
@@ -159,13 +159,13 @@ Widget buildstylishDrawer(BuildContext context) {
                 color: Colors.white,
               ),
               title: Text(
-                "Add events",
+                "EcoHub Events",
                 style: TextStyle(
                   color: Colors.white,
                 ),
               ),
               onTap: () {
-                moveScreen(context, EcoEvents(title: "title"));
+                moveScreen(context, EcoEvents());
               },
             ),
             Divider(color: Colors.white),

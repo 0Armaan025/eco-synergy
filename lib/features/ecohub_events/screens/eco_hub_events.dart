@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:eco_synergy/constants/constants.dart';
 
 class EcoEvents extends StatefulWidget {
-  final String title;
   const EcoEvents({
     Key? key,
-    required this.title,
-  }) : super(key: key);
+  gi}) : super(key: key);
 
   @override
   _EcoEventsState createState() => _EcoEventsState();

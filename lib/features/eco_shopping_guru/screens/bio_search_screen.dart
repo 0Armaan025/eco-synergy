@@ -47,7 +47,7 @@ class _BagScreenState extends State<BagScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Eco-Friendly Bags'),
+        title: Text('Eco-Friendly Products'),
       ),
       drawer: buildstylishDrawer(context),
       body: Padding(
