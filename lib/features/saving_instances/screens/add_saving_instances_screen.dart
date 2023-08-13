@@ -1,6 +1,7 @@
-import 'package:eco_synergy/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
+import '../../../constants/constants.dart';
 
 class SavingInstanceScreen extends StatefulWidget {
   @override
@@ -21,13 +22,11 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
   void initState() {
     super.initState();
 
-    // Initialize the animation controller
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
 
-    // Create an animation
     _animation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
@@ -48,8 +47,9 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
       'timestamp': FieldValue.serverTimestamp(),
     };
 
-    print('_energyController.text: ${_energyController.text}');
-    final int energySaved = int.parse(_energyController.text) ?? 0;
+    final energySavedText = _energyController.text;
+    final energyMatch = RegExp(r'(\d+)').firstMatch(energySavedText);
+    final energySaved = int.tryParse(energyMatch?.group(1) ?? '0') ?? 0;
 
     int awardedCoins = 0;
 
@@ -68,22 +68,15 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
       final userRef =
           FirebaseFirestore.instance.collection('users').doc(userId);
 
-      String money = "";
+      var firestoreData = await userRef.get();
 
-      var firestoreData = firestore
-          .collection('users')
-          .doc(firebaseAuth.currentUser?.uid ?? '')
-          .get()
-          .then((DocumentSnapshot snapshot) {
-        money = snapshot.get('ecoCurrency');
-        setState(() {});
-      });
+      String money = firestoreData.get('ecoCurrency') ?? '0';
 
       try {
+        int parsedMoney = int.parse(money);
         await userRef.update({
-          'ecoCurrency': (int.parse(money) + awardedCoins).toString(),
+          'ecoCurrency': (parsedMoney + awardedCoins).toString(),
         });
-        setState(() {});
       } catch (error) {
         print('Error updating ecoCurrency: $error');
       }
@@ -93,16 +86,13 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
       await FirebaseFirestore.instance
           .collection('savingInstances')
           .add(instance);
-      // Clear text fields
       _instanceController.clear();
       _activityController.clear();
       _timeController.clear();
       _energyController.clear();
-      // Show success message
-      Navigator.pop(context); // Go back to previous screen
+      Navigator.pop(context);
     } catch (error) {
       print('Error adding instance: $error');
-      // Show error message
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Error adding instance. Please try again.'),
@@ -145,11 +135,9 @@ class _SavingInstanceScreenState extends State<SavingInstanceScreen>
                     ),
                   ),
                   onTap: () {
-                    // Play the animation
                     _animationController.forward();
                   },
                   onEditingComplete: () {
-                    // Reset the animation
                     _animationController.reset();
                   },
                 ),
